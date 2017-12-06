@@ -1,5 +1,7 @@
 # [cli-demo] - Demonstration for Command Line Interface
 
+- [Cobra の使い方とテスト — プログラミング言語 Go | text.Baldanders.info](http://text.baldanders.info/golang/using-and-testing-cobra/)
+
 ## Install
 
 ```
