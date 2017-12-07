@@ -4,7 +4,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/spiegel-im-spiegel/gocli"
+	"github.com/spiegel-im-spiegel/gocli/exitcode"
+	"github.com/spiegel-im-spiegel/gocli/rwi"
 )
 
 func TestShowNormal(t *testing.T) {
@@ -21,13 +22,13 @@ func TestShowNormal(t *testing.T) {
 	for _, c := range testCases {
 		out := new(bytes.Buffer)
 		errOut := new(bytes.Buffer)
-		ui := gocli.NewUI(
-			gocli.Writer(out),
-			gocli.ErrorWriter(errOut),
+		ui := rwi.New(
+			rwi.Writer(out),
+			rwi.ErrorWriter(errOut),
 		)
 		exit := Execute(ui, c.args)
-		if exit != ExitNormal {
-			t.Errorf("Execute() err = \"%v\", want \"%v\".", exit, ExitNormal)
+		if exit != exitcode.Normal {
+			t.Errorf("Execute() err = \"%v\", want \"%v\".", exit, exitcode.Normal)
 		}
 		if out.String() != c.want {
 			t.Errorf("Execute() Stdout = \"%v\", want \"%v\".", out.String(), c.want)

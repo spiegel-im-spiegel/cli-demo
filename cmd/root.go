@@ -5,15 +5,16 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
-	"github.com/spiegel-im-spiegel/gocli"
+	"github.com/spiegel-im-spiegel/gocli/exitcode"
+	"github.com/spiegel-im-spiegel/gocli/rwi"
 )
 
 var (
-	cui = gocli.NewUI() //CUI instance
+	cui = rwi.New() //CUI instance
 )
 
 //newRootCmd returns cobra.Command instance for root command
-func newRootCmd(ui *gocli.UI, args []string) *cobra.Command {
+func newRootCmd(ui *rwi.RWI, args []string) *cobra.Command {
 	cui = ui
 	rootCmd := &cobra.Command{
 		Use:   "cli-demo",
@@ -32,7 +33,7 @@ func newRootCmd(ui *gocli.UI, args []string) *cobra.Command {
 }
 
 //Execute is called from main function
-func Execute(ui *gocli.UI, args []string) (exit ExitCode) {
+func Execute(ui *rwi.RWI, args []string) (exit exitcode.ExitCode) {
 	defer func() {
 		//panic hundling
 		if r := recover(); r != nil {
@@ -44,14 +45,14 @@ func Execute(ui *gocli.UI, args []string) (exit ExitCode) {
 				}
 				cui.OutputErrln(" ->", depth, ":", runtime.FuncForPC(pc).Name(), ":", src, ":", line)
 			}
-			exit = ExitAbnormal
+			exit = exitcode.Abnormal
 		}
 	}()
 
 	//execution
-	exit = ExitNormal
+	exit = exitcode.Normal
 	if err := newRootCmd(ui, args).Execute(); err != nil {
-		exit = ExitAbnormal
+		exit = exitcode.Abnormal
 	}
 	return
 }
