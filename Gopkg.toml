@@ -22,12 +22,16 @@
 
 [[constraint]]
   name = "github.com/spf13/cobra"
-  version = "~0.0.1"
+  version = "0.0.*"
 
 [[constraint]]
   name = "github.com/spiegel-im-spiegel/gocli"
-  version = "~0.5.0"
+  version = "0.7.*"
 
 [[constraint]]
   name = "github.com/pkg/errors"
-  version = "~0.8.0"
+  version = "0.8.*"
+
+[prune]
+  go-tests = true
+  unused-packages = true

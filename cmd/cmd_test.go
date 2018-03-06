@@ -23,8 +23,8 @@ func TestShowNormal(t *testing.T) {
 		out := new(bytes.Buffer)
 		errOut := new(bytes.Buffer)
 		ui := rwi.New(
-			rwi.Writer(out),
-			rwi.ErrorWriter(errOut),
+			rwi.WithWriter(out),
+			rwi.WithErrorWriter(errOut),
 		)
 		exit := Execute(ui, c.args)
 		if exit != exitcode.Normal {
